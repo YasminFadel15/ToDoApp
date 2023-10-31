@@ -1,0 +1,42 @@
+
+
+<h1 class="title animated jackInTheBox">to do list</h1>
+
+<ul class="animated flipInX" *ngIf="mode=='list'">
+  <p class="text-center" *ngIf="todos.length==0"><small>you don't have to do's today!</small></p>
+  <li *ngFor="let todo of todos">
+    {{ todo.description }}
+    <button (click)="remove(todo)"><i class="far fa-trash-alt"></i></button>
+    <button *ngIf="!todo.done" (click)="markAsDone(todo)"><i class="far fa-check-circle"></i></button>
+    <button *ngIf="todo.done" (click)="markAsUndone(todo)"><i class="fas fa-check-circle"></i></button>
+  </li>
+</ul>
+
+  <i id="meteor" class="fas fa-meteor" style="position: absolute; top: 80px; left: 50px;"></i>
+  <i id="meteor" class="fas fa-meteor" style="position: absolute; top: 80%; left: 100px;"></i>
+  <i id="meteor" class="fas fa-meteor" style="position: absolute; bottom: 100px; right: 100px;"></i>
+  <i id="space" class="fas fa-rocket" style="position: absolute; top: 60px; right:100px;"></i>
+
+<div id="modal" *ngIf="mode=='add'" class="animated flipInX">
+  <h1 class="text-center">new to do</h1>
+  <form [formGroup]="form">
+    <input type="text" placeholder="description" maxlength="60" formControlName="description"><br>
+    <small class="danger" *ngIf="form.controls['description'].invalid && !form.controls['description'].pristine">
+      this field must contain between 3 and 60 characters<br>
+    </small>
+    <p class="text-center">
+      <button [disabled]="form.invalid" (click)="add()" class="button"><i id="save-button" class="far fa-save"></i>save</button>
+    </p>
+  </form>
+  <br><br>
+</div>
+
+<button id="o-button" class="add-button animated fadeInUp button" (click)="changeMode('add')" *ngIf="mode=='list'">
+  <i class="fas fa-plus-circle"></i>
+  NEW
+</button>
+<button id="o-button" class="add-button animated fadeInUp button" (click)="changeMode('list')" *ngIf="mode=='add'">
+  <i class="fas fa-times"></i>
+  CANCEL
+</button>
+
